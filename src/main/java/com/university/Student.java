@@ -6,23 +6,20 @@ import java.util.List;
 public class Student {
     private String name;
     private String email;
-    private List<Subject> subjects;
-    private Course course;
+    private List<Course> courses;
 
     // =============== Constructor ========================
     public Student(String name, String email, Course course) {
         this.name = name;
         this.email = email;
-        this.course = course;
-        this.subjects = new ArrayList<>();
+        this.courses = new ArrayList<>();
     }
     // ====================================================
 
     // Settting up al the gets. !============================
     public String getName() { return name; }
     public String getEmail() { return email; }
-    public List<Subject> getSubjects() { return subjects; }
-    public Course getCourse() { return course; }
+    public List<Course> getCourses() { return courses; }
     // ======================================================
 
 //---------------------------------------------------------------------
