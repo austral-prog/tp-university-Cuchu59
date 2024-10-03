@@ -19,7 +19,7 @@ public class Student {
     // Settting up al the gets. !============================
     public String getName() { return name; }
     public String getEmail() { return email; }
-    public List<Course> getCourses() { return courses; }
+    public List<Course> getCourses() { return courses;}
     // ======================================================
 
 //---------------------------------------------------------------------
