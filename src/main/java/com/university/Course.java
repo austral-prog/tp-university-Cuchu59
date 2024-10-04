@@ -1,24 +1,18 @@
 package com.university;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Course {
     private List<Student> students;
     private String name;
-    private int max_students;
     private int students_amount;
     
     // =============== Constructor ==========================
-    public Course(List<Student> students, String name, int max_students) {
+    public Course(String name) {
         this.name = name;
-        this.max_students = max_students;
-
-        if(students.equals(List.of())) { this.students_amount = 0;}
-        else {
-            for(Student st : students) {
-                this.AddStudent(st);
-            }
-        }
+        this.students = new ArrayList<>();
+        this.students_amount = 0;
     }
     // ======================================================
 
@@ -32,7 +26,6 @@ public class Course {
 
     // CLASS METHODS ========================================
     public void AddStudent(Student new_student) {
-        if(max_students <= students_amount) { return; }
         if(new_student != null) {
             students.add(new_student);
             students_amount += 1;
@@ -40,13 +33,24 @@ public class Course {
     }
 
     public void RmvStudent(Student new_student) {
-        if(max_students <= students_amount) { return; }
         if(new_student != null) {
             students.remove(new_student);
             students_amount -= 1;
         }
     }
     
+    public boolean hasStudent(Student stu) { 
+        
+        for(Student s : students) {
+            if(stu.equals(s)) {
+                return true; 
+            }
+        }
+        return false;
+    }
+    public boolean equals(Course c) {
+        return (c.getName()).equals(this.getName());
+    }
 
     // ======================================================
 }

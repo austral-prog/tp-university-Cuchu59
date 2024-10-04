@@ -13,6 +13,8 @@ public class Student {
         this.name = name;
         this.email = email;
         this.courses = new ArrayList<>();
+        if(course != null) { courses.add(course); }
+        
     }
     // ====================================================
 
@@ -25,7 +27,22 @@ public class Student {
 //---------------------------------------------------------------------
 
     // CLASS METHODS ========================================
+    public boolean equals(Student stu) {
+        return (stu.getName()).equals(this.getName());
+    }
 
+    public void AddCourse(Course c) {
+        if(!hasCourse(c)) {courses.add(c);}
+        
+    }
+    public boolean hasCourse(Course course) {
+        List<String> courses_names = new ArrayList<>();  
+        for(Course av_course : courses) {
+            courses_names.add(av_course.getName());
+        }
+
+        return courses_names.contains(course.getName());
+    }
     // ======================================================
 
     

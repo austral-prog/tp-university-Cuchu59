@@ -7,7 +7,7 @@ import java.io.IOException;
 public class App {
     public static void main(String[] args) {
         System.out.println("Corriendo");
-        ReadCSV("tp-university-Cuchu59/src/main/resources/input.csv");
+        DigestCSV("tp-university-Cuchu59/src/main/resources/input.csv");
     }
 
 
@@ -16,20 +16,28 @@ public class App {
     // *  del archivo para recibir todos los datos de la base de datos
     // * --> input.csv
     
-    public static void ReadCSV(String PATH) {
+    public static void DigestCSV(String PATH) {
         String linea = "";
 
         try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
+            University university = new University("Universidad Nueva");
+            
             while ((linea = br.readLine()) != null) {   
-                // Usamos el separador para dividir la línea en columnas
+                // Dividimos la línea en columnas
                 String[] columnas = linea.split(",");
-
-                // Mostrar cada columna (puedes hacer otras operaciones aquí)
-                for (String columna : columnas) {
-                    System.out.print(columna + " ");
+                
+                Course new_course = new Course(columnas[1]); 
+                Student new_student = new Student(columnas[2], columnas[3], new_course); 
+                if(!(new_course.getName().equals("Subject")) || !(new_student.getName().equals("Student_Name"))) 
+                { 
+                    if(!university.hasCourse(new_course)) {
+                        university.AddCourse(new_course);
+                    }
+                    university.AddStudentTo(new_student, new_course);
                 }
-                System.out.println();
             }
+            university.printInfo();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
