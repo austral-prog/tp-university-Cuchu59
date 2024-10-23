@@ -1,45 +1,51 @@
 package com.university;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class App {
+    
     public static void main(String[] args) {
         System.out.println("Corriendo");
-        DigestCSV("tp-university-Cuchu59/src/main/resources/input.csv");
-    }
-
-
-    // ====================================================
-    // *  HAY QUE IMPLEMENTAR EL METODO ReadCSV() que reciba la direccion
-    // *  del archivo para recibir todos los datos de la base de datos
-    // * --> input.csv
-    
-    public static void DigestCSV(String PATH) {
-        String linea = "";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
-            University university = new University("Universidad Nueva");
-            
-            while ((linea = br.readLine()) != null) {   
-                // Dividimos la línea en columnas
-                String[] columnas = linea.split(",");
-                
-                Course new_course = new Course(columnas[1]); 
-                Student new_student = new Student(columnas[2], columnas[3], new_course); 
-                if(!(new_course.getName().equals("Subject")) || !(new_student.getName().equals("Student_Name"))) 
-                { 
-                    if(!university.hasCourse(new_course)) {
-                        university.AddCourse(new_course);
-                    }
-                    university.AddStudentTo(new_student, new_course);
-                }
-            }
-            university.printInfo();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        
+        // LA CLASE UNIVERSITY YA NO EXISTE, TOCA REESCRIBIR EL SISTEMA
+        //University new_university = CSV_Treat.CSVToUniv("tp-university-Cuchu59/src/main/resources/input.csv","Universidad Austral");
+        
+        // ======| TP 1 |===============================================
+        String[] a = {"Student_Name","Course_Count"};
+        CSV_Treat.Read_File("tp-university-Cuchu59/src/main/resources/input.csv");
+        Course.create_Courses_Students();
+        
+        List<String[]> data = new ArrayList<>();
+        data.add(a);
+        for(Student stud : Student.getAllStudents()) {
+            data.add(stud.process_data().get(0));
         }
+        
+        CSV_Treat.createCSV("tp-university-Cuchu59/src/main/resources/solution.csv", data);
+
+        
+
+        // ======| TP 2 |===============================================
+        String[] b = {"Subject_Name","Evaluation_Name", "Student_Name", "Grade"};
+        CSV_Treat.Read_File("tp-university-Cuchu59/src/main/resources/input_2.csv");
+        Course.create_evaluationsPerCourse();
+        
+        List<String[]> data_2 = new ArrayList<>();
+        data_2.add(b);
+        for(Course cour : Course.getAllCourses()) {
+            data_2.addAll(cour.process_data());
+        }
+        
+        CSV_Treat.createCSV("tp-university-Cuchu59/src/main/resources/solution2.csv", data_2);
+        
+
+
+
     }
+    
+
+    
+
+    
 }

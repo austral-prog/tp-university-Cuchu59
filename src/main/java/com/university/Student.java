@@ -1,50 +1,76 @@
 package com.university;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
-public class Student {
-    private String name;
-    private String email;
+
+public class Student extends Person implements Processor {
     private List<Course> courses;
-
-    // =============== Constructor ========================
-    public Student(String name, String email, Course course) {
-        this.name = name;
-        this.email = email;
+    
+    private static Set<Student> students_instances = new TreeSet<>(Comparator.comparing(Student::getName));;
+    
+    public Student(String name, String email) {
+        super(name, email); // Inherits from abstract class "Person".
         this.courses = new ArrayList<>();
-        if(course != null) { courses.add(course); }
-        
+        students_instances.add(this);
     }
-    // ====================================================
-
-    // Settting up al the gets. !============================
-    public String getName() { return name; }
-    public String getEmail() { return email; }
-    public List<Course> getCourses() { return courses;}
-    // ======================================================
-
-//---------------------------------------------------------------------
-
-    // CLASS METHODS ========================================
-    public boolean equals(Student stu) {
-        return (stu.getName()).equals(this.getName());
-    }
-
-    public void AddCourse(Course c) {
-        if(!hasCourse(c)) {courses.add(c);}
-        
-    }
-    public boolean hasCourse(Course course) {
-        List<String> courses_names = new ArrayList<>();  
-        for(Course av_course : courses) {
-            courses_names.add(av_course.getName());
-        }
-
-        return courses_names.contains(course.getName());
-    }
-    // ======================================================
 
     
+    // CLASS METHODS
+    public static Set<Student> getAllStudents() { return students_instances; };
+    public static Student getStudent(String stu_name) { 
+        for (Student stu : students_instances) {
+            if(stu.getName().equals(stu_name)){ return stu; }
+        }
+        return null;
+    }
+    public static void printStudents() {
+        for(Student s : students_instances) {
+            System.out.print("||"+s.getName()+"||: ");
+            
+            for (Course c : s.getCourses()) {                
+                System.out.print(c.getName() + ", ");
+            }
 
+            System.out.println("\n");
+        }
+    }
+    public static boolean hasStudent(String stu_name) {
+        if(stu_name == "") { return false; }
+        
+        // We create a list of names from the courses.
+        List<String> students_names = new ArrayList<>();  
+        for(Student av_stu : students_instances) {
+            students_names.add(av_stu.getName());
+        }
+
+        // Check if course_name is in the list.
+        return students_names.contains(stu_name);
+    }
+
+    // Instance METHODS
+    public List<Course> getCourses() { return courses;}
+    public void AddCourse(Course c) { if(!hasCourse(c)) { courses.add(c); } }
+    public boolean hasCourse(Course check_course) {
+        for(Course course : this.courses) {
+            if(course.getName().equals(check_course.getName())) { 
+                return true; 
+            }
+        }
+        return false;
+    }
+
+
+    // CSV RELATED
+    public List<String[]> process_data() {
+        List<String[]> line = new ArrayList<>();
+        String[] toAdd = {this.getName(), String.valueOf(this.getCourses().size())};    
+        line.add(toAdd);
+        
+        return line;
+    }
+    
 }
