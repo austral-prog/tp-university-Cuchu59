@@ -21,7 +21,7 @@ public class AppTest {
         if (Files.exists(Paths.get(solutionFilePath))) {
             fail("The solution.csv file exists before the test runs.");
         }
-
+        
         try {
             App.main(new String[]{});  // Running the App's main method
         } catch (Exception e) {

@@ -14,7 +14,7 @@ public abstract class Person {
     public String getEmail() { return email; }
     
     public boolean equals(Person person) {
-        return (person.getName()).equals(this.getName());
+        return (person.getName().toLowerCase()).equals(this.getName().toLowerCase());
     }
 
 }

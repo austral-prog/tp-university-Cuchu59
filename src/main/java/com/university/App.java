@@ -13,35 +13,40 @@ public class App {
         
         // ======| TP 1 |===============================================
         String[] a = {"Student_Name","Course_Count"};
-        CSV_Treat.Read_File("tp-university-Cuchu59/src/main/resources/input.csv");
-        Course.create_Courses_Students();
-        
         List<String[]> data = new ArrayList<>();
         data.add(a);
-        for(Student stud : Student.getAllStudents()) {
+        
+        CSV_Treat.Read_File("tp-university-Cuchu59/src/main/resources/input.csv");
+        University.create_Courses_Students();
+        for(Student stud : University.allStudents) {
             data.add(stud.process_data().get(0));
         }
-        
         CSV_Treat.createCSV("tp-university-Cuchu59/src/main/resources/solution.csv", data);
 
-        
 
         // ======| TP 2 |===============================================
         String[] b = {"Subject_Name","Evaluation_Name", "Student_Name", "Grade"};
-        CSV_Treat.Read_File("tp-university-Cuchu59/src/main/resources/input_2.csv");
-        Course.create_evaluationsPerCourse();
-        
         List<String[]> data_2 = new ArrayList<>();
         data_2.add(b);
+        
+        CSV_Treat.Read_File("tp-university-Cuchu59/src/main/resources/input_2.csv");
+        University.create_evaluationsPerCourse();
         for(Course cour : Course.getAllCourses()) {
             data_2.addAll(cour.process_data());
         }
-        
         CSV_Treat.createCSV("tp-university-Cuchu59/src/main/resources/solution2.csv", data_2);
         
 
+        // ======| TP 3 |===============================================
+        String[] c = {"","", "", ""};
+        List<String[]> data_3 = new ArrayList<>();
+        data_2.add(c);
 
+        // CSV_Treat.Read_File("");
 
+        
+        // ======| TP 4 |===============================================
+        // ...
     }
     
 

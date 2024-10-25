@@ -9,7 +9,7 @@ public class Evaluation {
     private String name;
     private String type;
     private Map<String, List<Float>> scores;
-
+    
     public Evaluation(String name, String type) {
         this.name = name;
         this.type = type;
