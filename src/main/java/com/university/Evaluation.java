@@ -17,6 +17,8 @@ public class Evaluation {
     }
 
     public String getName() { return name; }
+    public String getType() { return type; }
+    
     public Map<String, List<Float>> getScores() { return scores; }
 
     public void addScores(Student stu, Float score) {

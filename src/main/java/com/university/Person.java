@@ -9,7 +9,6 @@ public abstract class Person {
         this.email = email.toLowerCase();
     }
 
-
     public String getName() { return name; }
     public String getEmail() { return email; }
     

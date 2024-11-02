@@ -16,8 +16,9 @@ public class App {
         List<String[]> data = new ArrayList<>();
         data.add(a);
         
-        CSV_Treat.Read_File("tp-university-Cuchu59/src/main/resources/input.csv");
-        University.create_Courses_Students();
+        CSV_Treat.ReadFile("tp-university-Cuchu59/src/main/resources/input.csv");
+        Creator.create_Courses_Students();
+
         for(Student stud : University.allStudents) {
             data.add(stud.process_data().get(0));
         }
@@ -25,15 +26,18 @@ public class App {
 
 
         // ======| TP 2 |===============================================
+
         String[] b = {"Subject_Name","Evaluation_Name", "Student_Name", "Grade"};
         List<String[]> data_2 = new ArrayList<>();
         data_2.add(b);
         
-        CSV_Treat.Read_File("tp-university-Cuchu59/src/main/resources/input_2.csv");
-        University.create_evaluationsPerCourse();
-        for(Course cour : Course.getAllCourses()) {
+        CSV_Treat.ReadFile("tp-university-Cuchu59/src/main/resources/input_2.csv");
+        Creator.create_evaluationsPerCourse();
+        
+        for(Course cour : University.allCourses) {
             data_2.addAll(cour.process_data());
         }
+        
         CSV_Treat.createCSV("tp-university-Cuchu59/src/main/resources/solution2.csv", data_2);
         
 
@@ -42,11 +46,7 @@ public class App {
         List<String[]> data_3 = new ArrayList<>();
         data_2.add(c);
 
-        // CSV_Treat.Read_File("");
-
-        
-        // ======| TP 4 |===============================================
-        // ...
+        CSV_Treat.ReadFile("tp-university-Cuchu59/src/main/resources/input_3.csv");
     }
     
 
